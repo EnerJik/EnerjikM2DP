@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+    <!--  Déclaration du PropertyPlaceholderConfigurer -->
+    	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/com/ujf/m2miage/enerjikdp/dao/db.properties</value>
+			</list>
+		</property>
+	</bean>
+
+<!--  Déclaration de la DATASOURCES -->
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		p:driverClassName="${database.driver}"
+		p:url="jdbc:oracle:thin:@${database.host}:${database.port}:${database.name}"
+		p:username="${database.username}"
+		p:password="${database.password}" />
+
+
+<!--  Déclaration des DAO JDBC-->
+
+	<bean id="capterDao"
+		class="com.ujf.m2miage.enerjikdp.dao.CapterDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+		
+</beans>
