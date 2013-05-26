@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+
+<!-- linked with the application by servlet-context.xml -->
+<tiles-definitions>	
+	
+	<definition name="standardLayout" template="/WEB-INF/templates/standard.jsp">
+		<put-attribute name="title" value="Simple Application" type="string" />
+		<put-attribute name="header" value="/WEB-INF/templates/header.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/templates/menu.jsp" />
+		<put-attribute name="content" value="/WEB-INF/templates/body.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/templates/footer.jsp" />	
+	</definition>
+	
+	<definition name="baseLayout" template="/WEB-INF/templates/baseLayout.jsp">
+		<put-attribute name="title" value="Cosi+" type="string" />
+		<put-attribute name="header" value="header" />
+		<put-attribute name="headercontent" value="" />
+		<put-attribute name="headercommand" value="/WEB-INF/templates/header/headercommand.jsp" />
+	</definition>
+	
+	<definition name="header" template="/WEB-INF/templates/header.jsp">
+		<put-attribute name="navigation" value="/WEB-INF/templates/header/navigation.jsp" />
+		<put-attribute name="search" value="/WEB-INF/templates/header/search.jsp" />
+		<put-attribute name="headermenu" value="/WEB-INF/templates/header/headermenu.jsp" />
+		<put-attribute name="headerconnexion" value="/WEB-INF/templates/header/headerconnexion.jsp" />
+	</definition>
+	
+	<definition name="ajaxResponse" template="/WEB-INF/views/common/ajaxResponse.jsp">
+	</definition>
+	
+	<!-- gestion de documents -->
+	<definition name="documents" extends="baseLayout">
+		<put-attribute name="headercontent" value="/WEB-INF/views/documents/documentsEntryContent.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/documents/documentsContent.jsp"/>
+		<!--  <put-attribute name="right" value="/WEB-INF/views/documents/documentsHistory.jsp" />  -->
+	</definition>
+		<!-- user -->
+	<definition name="listeningFolders" extends="baseLayout">
+		<put-attribute name="headercontent" value="/WEB-INF/views/listeningFolder/listeningFoldersEntryContent.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/listeningFolder/listeningFoldersContent.jsp" />
+	</definition>
+	
+	<definition name="vignette" template="/WEB-INF/views/documents/vignette.jsp">
+	</definition>
+	
+	<definition name="documentMenuItems" template="/WEB-INF/views/documents/documentMenuItems.jsp">
+	</definition>
+	<!-- gestion de documents -->
+	
+	<!-- admin -->
+	<definition name="admin" extends="baseLayout">
+		<put-attribute name="headercontent" value="/WEB-INF/views/admin/adminEntryContent.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/admin/adminContent.jsp" />
+		<!-- <put-attribute name="right" value="/WEB-INF/views/documents/documentsHistory.jsp" />  -->
+	</definition>
+	
+		<!-- user -->
+	<definition name="users" extends="baseLayout">
+		<put-attribute name="headercontent" value="/WEB-INF/views/users/userEntryContent.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/users/userContent.jsp" />
+		<put-attribute name="right" value="/WEB-INF/views/users/userHistory.jsp" />
+	</definition>
+	
+		<!-- configuration -->
+	<definition name="configurations" extends="baseLayout">
+		<put-attribute name="headercontent" value="/WEB-INF/views/configuration/configurationEntryContent.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/configuration/configurationContent.jsp" />
+		<put-attribute name="right" value="/WEB-INF/views/configuration/configurationHistory.jsp" />
+	</definition>
+	
+	<!-- 
+	<definition name="home" extends="standardLayout">
+		<put-attribute name="content" value="/WEB-INF/views/home.jsp" />
+	</definition>
+	
+	<definition name="listPerson" extends="standardLayout">
+		<put-attribute name="content" value="/WEB-INF/views/listPerson.jsp" />
+	</definition>
+	 -->
+	 
+</tiles-definitions>

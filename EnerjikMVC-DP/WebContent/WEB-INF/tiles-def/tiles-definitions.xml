@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+	
+<tiles-definitions>	
+	
+	<definition name="layout" template="/WEB-INF/templates/layout.jsp">
+		<put-attribute name="title" value="EnerjikMVC-DP" />
+		<put-attribute name="header" value="/WEB-INF/templates/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/templates/body.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/templates/footer.jsp" />
+	</definition>
+	
+	<definition name="home" extends="layout">
+		<put-attribute name="title" value="Accueil" />
+		<put-attribute name="body" value="/WEB-INF/views/jsp/home.jsp" />
+	</definition>
+	
+	<definition name="uploadForm-response" extends="layout">
+		<put-attribute name="title" value="Accueil" />
+		<put-attribute name="body" value="/WEB-INF/views/jsp/upload/uploadForm-response.jsp" />
+	</definition>
+	
+	<definition name="uploadForm" template="/WEB-INF/views/jsp/upload/uploadForm.jsp">
+	</definition>
+	
+</tiles-definitions>

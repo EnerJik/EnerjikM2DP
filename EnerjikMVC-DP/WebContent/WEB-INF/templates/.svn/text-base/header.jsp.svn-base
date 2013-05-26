@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tiles"  uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<div>
+	<div id="headergen_logo">
+		<a href=""><img alt="logo client" src="resources/images/ged/icons/logoclient_xs.png"></a>
+	</div>
+	<div class="hsep"></div>
+	<div id="headergen_timeline">
+		<tiles:insertAttribute name="navigation" />
+	</div>
+	<div class="hsep"></div>
+	<div id="searchbar">
+		<tiles:insertAttribute name="search" />
+	</div>
+	<div class="hsep"></div>
+	<div id="menuicons">
+		<tiles:insertAttribute name="headermenu" />
+	</div>
+	<div class="hsep"></div>
+	<div id="headergen_connexion">
+		<tiles:insertAttribute name="headerconnexion" />
+	</div>
+
+</div>

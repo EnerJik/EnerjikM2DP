@@ -1,0 +1,31 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
+<div>
+	<ul>
+		 <%-- Need use-expressions="true" in security.xml (Spring definition for security) when define function like isAnonymous() --%>
+		 <security:authorize access="isAnonymous()">
+			<c:url value="/registration" var="userRegistrationUrl" />
+			<c:url value="/persons/list" var="userAccountUrl" />
+			
+			<li > <a href="${userRegistrationUrl}"> Register me </a>  </li>			
+			<li > <a href="${userAccountUrl}"> Connect me </a>  </li>
+		</security:authorize>
+		
+		<security:authorize access="isAuthenticated()">
+			<li> Something to add for authenticated user</li>
+		</security:authorize>
+		
+		<%--
+		<!-- Another way is to map url and not EL access (avoid duplicate declaration -->
+		<security:authorize url="/admin/**">
+			<!--  <spring:urlvalue="/admin"var="admin_url"/> -->
+			<c:url value="/admin" var="adminUrl" />
+			<br/><a href="${adminUrl}">Admin</a>
+		</security:authorize>	
+		--%>
+	</ul>
+</div>
