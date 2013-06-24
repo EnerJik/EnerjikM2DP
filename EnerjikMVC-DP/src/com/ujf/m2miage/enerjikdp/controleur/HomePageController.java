@@ -19,6 +19,7 @@ public class HomePageController {
 
 	@RequestMapping({"/","/home"})
 	public String homePage(Model model) {
+		//ystem.out.println(splitInfoService.testService());
 		return "home";
 	}
 	

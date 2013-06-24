@@ -7,6 +7,11 @@ import java.text.SimpleDateFormat;
 import java.util.Set;
 
 import com.ujf.m2miage.enerjikdp.dao.CapterDao;
+import com.ujf.m2miage.enerjikdp.dao.CapterDaoImpl;
+import com.ujf.m2miage.enerjikdp.dao.EquipementDao;
+import com.ujf.m2miage.enerjikdp.dao.EquipementDaoImpl;
+import com.ujf.m2miage.enerjikdp.dao.HouseDao;
+import com.ujf.m2miage.enerjikdp.dao.HouseDaoImpl;
 import com.ujf.m2miage.enerjikdp.model.Capter;
 import com.ujf.m2miage.enerjikdp.model.Equipement;
 import com.ujf.m2miage.enerjikdp.model.House;
@@ -27,6 +32,11 @@ public class SplitInfoServiceImpl implements SplitInfoService{
 	
 	public void splitFile(InputStream ips) {
 		// TODO Auto-generated method stub
+		System.out.println("sqdqsdqsdqsdqsdqsd_____________");
+		//Instanciation des services dao
+		HouseDao hd = new HouseDaoImpl(); 
+		EquipementDao ed = new EquipementDaoImpl();
+		CapterDao cd = new CapterDaoImpl();
 		
 		House house = new House();
 		Equipement equip = new Equipement();
@@ -35,8 +45,8 @@ public class SplitInfoServiceImpl implements SplitInfoService{
 		
 		Set<Measure> listMeasure = null;
 		
-		String nomProjet="";
-		String paysProjet="";
+		String houseName ="";
+		String equipementName = "";
 		
 		String date="";
 		String heure="";
@@ -52,44 +62,62 @@ public class SplitInfoServiceImpl implements SplitInfoService{
 			int i = 0;
 			
 			while ((ligne=br.readLine())!=null){
-				if(i==0){
-					nomProjet = ligne.split("PROJECT : | \\([A-Za-z0-9]*\\)")[1].trim();
-					paysProjet = ligne.split("\\(|\\)")[1].trim();
-				}
-				else if(i==1){
-					house.setName(ligne.split("HOUSEHOLD : ")[1].trim());
-					capter.setHouse(house);
-				}
-				else if(i==2){
-					equip.setName(ligne.split("APPLIANCE : | \\([A-Za-z0-9]*\\)")[1].trim());
-					capter.setEquipement(equip);
-				}
-				else if(i==4){
-					equip.setUnity(ligne.split("\\(|\\)")[5].trim());
-				}
-				else if(i>4){
-					date = ligne.split("\t")[0].trim();
-					heure = ligne.split("\t")[1].trim();
-					measure.setDate(dateFormat.parse(date+" "+heure));
-					etat = ligne.split("\t")[2].trim();
-					if(Integer.parseInt(etat) == 0){
-						measure.setState(false);
-					}
-					else if(Integer.parseInt(etat) == 1){
-						measure.setState(true);
-					}
-					else{ 
-						measure.setState(false);
-					}
-					measure.setValue(Double.parseDouble(ligne.split("\t")[3].trim()));
-					measure.setCapter(capter);
-					listMeasure.add(measure);
+				
+				switch (i){
+					case 0 :
+						//nomProjet = ligne.split("PROJECT : | \\([A-Za-z0-9]*\\)")[1].trim();
+						//paysProjet = ligne.split("\\(|\\)")[1].trim();
+						break;
+					case 1 :
+						houseName = ligne.split("HOUSEHOLD : ")[1].trim();
+						House h = hd.findHouseByName(houseName);
+						if(h == null){
+							house.setName(houseName);
+							hd.insertHouse(house);
+						}
+						break;
+					case 2 :
+						equipementName = ligne.split("APPLIANCE : | \\([A-Za-z0-9]*\\)")[1].trim();
+						Equipement e = ed.findEquipementByName(equipementName);
+						
+						if(e == null){
+							equip.setIdHouse(hd.findHouseByName(houseName).getIdHouse());
+							equip.setName(equipementName);
+							ed.insertEquipement(equip);
+						}
+						capter.setIdEquipement(ed.findEquipementByName(equipementName).getIdEquipement());
+						cd.insertCapter(capter);
+						
+						break;
+					case 3 :
+						break;
+					case 4 :
+						//equip.setUnity(ligne.split("\\(|\\)")[5].trim());
+						break;
+					default :
+						if(i>4){
+							date = ligne.split("\t")[0].trim();
+							heure = ligne.split("\t")[1].trim();
+							measure.setDate(dateFormat.parse(date+" "+heure));
+							etat = ligne.split("\t")[2].trim();
+							if(Integer.parseInt(etat) == 0){
+								measure.setState(false);
+							}
+							else if(Integer.parseInt(etat) == 1){
+								measure.setState(true);
+							}
+							else{ 
+								measure.setState(false);
+							}
+							measure.setValue(Double.parseDouble(ligne.split("\t")[3].trim()));
+							measure.setIdCapter(1); //<-- Comment faire pour connaitre l'ID du capteur ???
+						}
+						break;
 				}
 				i++;
 			}
-			capter.setMeasure(listMeasure);
-			br.close(); 
-		}		
+			br.close();
+		}
 		catch (Exception e){
 			System.out.println(e.toString());
 		}
@@ -97,8 +125,6 @@ public class SplitInfoServiceImpl implements SplitInfoService{
 
 	@Override
 	public void saveCapter(Capter capter) {
-		capterDao.saveCapter(capter);
 		
 	}
-	
 }

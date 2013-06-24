@@ -18,6 +18,9 @@
 	<context:component-scan base-package="com.ujf.m2miage.enerjikdp"/>
 	
 	<import resource="classpath:com/ujf/m2miage/enerjikdp/spring/configDao2Tiers.xml"/>
+	
 	<import resource="classpath:com/ujf/m2miage/enerjikdp/spring/configService2Tiers.xml"/>
+	
+	<import resource="classpath:com/ujf/m2miage/enerjikdp/spring/config-WebService.xml"/>
 	
 </beans>

@@ -1,9 +1,3 @@
-<script>
-	$(document).ready(function(){
-		$("#uploadBlock").load("upload.action");
-	});	
-</script>
-
 <div id="content" class="fullpage body marginbottomPage">
 	<div>
 		<div id="formula_wrap">

@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Measure {
    
-   private int id;
+   private int idMeasure;
    
    private boolean state;
    
@@ -18,38 +18,25 @@ public class Measure {
    
    private Double value;
    
-   private Capter capter;
+   private int idCapter;
    
    /** @pdGenerated default parent getter */
-   public Capter getCapter() {
-      return capter;
+   public int getIdCapter() {
+      return this.idCapter;
    }
    
    /** @pdGenerated default parent setter
      * @param newCapter */
-   public void setCapter(Capter newCapter) {
-      if (this.capter == null || !this.capter.equals(newCapter))
-      {
-         if (this.capter != null)
-         {
-            Capter oldCapter = this.capter;
-            this.capter = null;
-            oldCapter.removeMeasure(this);
-         }
-         if (newCapter != null)
-         {
-            this.capter = newCapter;
-            this.capter.addMeasure(this);
-         }
-      }
+   public void setIdCapter(int idCapter) {
+      this.idCapter = idCapter;
    }
 
-	public int getId() {
-		return id;
+	public int getIdMeasure() {
+		return this.idMeasure;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
+	public void setIdMeasure(int idMeasure) {
+		this.idMeasure = idMeasure;
 	}
 	
 	public boolean isState() {

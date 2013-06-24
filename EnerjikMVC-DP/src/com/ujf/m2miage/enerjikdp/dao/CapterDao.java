@@ -15,7 +15,7 @@ public interface CapterDao {
 	 * save capter in bdd
 	 * @param capter
 	 */
-	public void saveCapter(Capter capter);
+	public void insertCapter(Capter capter);
 
 	
 	/**
@@ -36,6 +36,6 @@ public interface CapterDao {
 	 * @param idCapter: id capter
 	 * @return list of capter with id in parameter
 	 */
-	public List<Capter> findCapterById(Integer idCapter);
+	public Capter findCapterById(Integer idCapter);
 	
 }

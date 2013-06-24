@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="enerjikWeb" basedir=".">
+	
+	<property file="${basedir}/enerjikWeb.properties" />
+	
+	<!-- Nom du projet -->
+	<property name="project.name" value="EnerjikWeb" />
+	
+	<!-- Rep racine du projet -->
+	<property name="project.dir" value="${basedir}" />
+	
+	<!--Rep des sources -->
+	<property name="src.dir" value="${project.dir}\src" />
+	
+	<!-- Rep des binaires -->
+	<property name="bin.dir" value="${project.dir}/WebContent/WEB-INF/classes" />
+
+	<!-- Repertoire contenant la Java Doc genere -->
+	<property name="javaDoc.dir" value="${project.dir}\doc\javaDoc"></property>
+		
+	<fileset id="tomcatLibs" dir="${tomcatHome}">
+		<include name="lib\*.jar" />
+		<include name="lib\endorsed\*.jar" />
+		<include name="client\*.jar" />
+		<include name="nxserver\bundles\*.jar" />
+		<include name="nxserver\lib\*.jar" />
+		<include name="nxserver\client\*.jar" />
+	</fileset>
+
+	<path id="classpath">
+		<!-- les .class du projet -->
+		<pathelement location="${bin.dir}" />
+	</path>
+
+	<!-- Initialiser les BDs   ****************** -->
+	<target name="InitDatabase" description="Initialise les donnees des bases Oracle Ged et Nuxeo">
+		<echo message="*** Initialise la BD Nuxeo (DDL et DML) ..." />
+		<echo message="${oracleBinDir}\sqlplus ${dbNuxeoUser}/${dbNuxeoPwd}@${oracleInstance} @_initNuxeoMain.sql">
+		</echo>
+		<exec dir="${db.oracle.init.dir}" executable="cmd.exe">
+			<arg line="/c ${oracleBinDir}\sqlplus ${dbNuxeoUser}/${dbNuxeoPwd}@${oracleInstance} @_initNuxeoMain.sql" />
+		</exec>
+		<echo message="*** Initialise la BD Ged (DDL et DML) ..." />
+		<echo message="Aucun traitement a la date du 27/06/12: a modifier ci-necessaire"/>
+	</target>
+	
+	<!-- build avec des class source du web service via un fichier bat -->
+	<target name="wsgen-build-webservice-bat">
+	  <delete dir="${project.webservice.export}" failonerror="false"/>
+	  <mkdir dir="${project.webservice.export}" />
+	  <exec executable="cmd">
+	    <arg value="/c"/>
+	    <arg value="${project.dir}/tools/wsImport-client-Artifact.bat"/>
+	    <arg value="${project.webservice.export}"/>
+	    <arg value="${project.webservice.URI}" />
+	    <arg value="-p"/>
+	  </exec>
+	</target>
+	
+	<!-- génération du fichier jar avec les sources génerés soit par wsgen soit par wsimport -->
+	<target name="BuildWebserviceJar" depends="wsgen-build-webservice-bat" description="Cree ${enejikWSJarFile} et son source">
+		<echo message="### Creation de ${enejikWSJarFile}" />
+		<jar jarfile="${project.webservice.export}/${enejikWSJarFile}" basedir="${project.webservice.export}" excludes="**/*.java">
+			<manifest>
+				<attribute name="Extension-Name" value="gedWebserviceClient-api" />
+				<attribute name="Specification-Version" value="${version}" />
+				<attribute name="Specification-Vendor" value="M2MIAGE2013-Patrice-David" />
+				<attribute name="Implementation-Vendor" value="M2MIAGE2013-Patrice-David" />
+			</manifest>
+		</jar>
+	</target>
+</project>

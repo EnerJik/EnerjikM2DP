@@ -17,12 +17,23 @@
 		<put-attribute name="body" value="/WEB-INF/views/jsp/home.jsp" />
 	</definition>
 	
+	<definition name="graph" extends="layout">
+		<put-attribute name="title" value="Graph de consommation" />
+		<put-attribute name="body" value="/WEB-INF/views/jsp/graph/graph.jsp" />
+	</definition>
+	
 	<definition name="uploadForm-response" extends="layout">
 		<put-attribute name="title" value="Accueil" />
 		<put-attribute name="body" value="/WEB-INF/views/jsp/upload/uploadForm-response.jsp" />
 	</definition>
 	
-	<definition name="uploadForm" template="/WEB-INF/views/jsp/upload/uploadForm.jsp">
+	<definition name="uploadForm" extends="layout">
+		<put-attribute name="title" value="Graph de consommation" />
+		<put-attribute name="body" value="/WEB-INF/views/jsp/upload/uploadForm.jsp" />
 	</definition>
 	
+	<definition name="consodetails" extends="layout">
+		<put-attribute name="title" value="Detail de consommation" />
+		<put-attribute name="body" value="/WEB-INF/views/jsp/consoDetails.jsp"/>
+	</definition>	
 </tiles-definitions>

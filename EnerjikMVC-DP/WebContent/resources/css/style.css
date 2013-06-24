@@ -1,0 +1,30 @@
+
+h1, hr {
+	margin: 0px;
+	padding: 0px;
+}
+
+#banner {
+	padding: 5px;
+	color: #FD5318;
+	margin-top: 5px;
+}
+
+table {
+	font-size: 1em;
+}
+
+.ui-jqgrid .ui-pg-selbox {
+    display: block;
+    font-size: 0.8em;
+    height: 30px;
+    line-height: 18px;
+    margin: 0;
+}
+
+element.style {
+    width: 2055.5px;
+}
+.ui-jqgrid {
+    font-size: 0.9em;
+}
